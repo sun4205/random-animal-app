@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { fetchCatImage, fetchDogImage } from "./api/fetchImage";
 import ImageCard from "./components/ImageCard";
+import "./App.css";
 
 const App: React.FC = () => {
   const [imagUrl, setImageUrl] = useState<string>("");
@@ -14,7 +15,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div style={{ textAlign: "center", padding: "20px" }}>
+    <div className="container">
       <h1>Random dog & cat image</h1>
       <button onClick={() => handleFetch("dog")}>🐶 Dog</button>
       <button onClick={() => handleFetch("cat")}>🐱 Cat</button>
