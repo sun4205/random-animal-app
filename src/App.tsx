@@ -1,9 +1,26 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React, { useState } from "react";
+import { fetchCatImage, fetchDogImage } from "./api/fetchImage";
+import ImageCard from "./components/ImageCard";
 
-function App() {
-  return <div className="App"></div>;
-}
+const App: React.FC = () => {
+  const [imagUrl, setImageUrl] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+
+  const handleFetch = async (type: "dog" | "cat") => {
+    setLoading(true);
+    const url = type === "dog" ? await fetchDogImage() : await fetchCatImage();
+    setImageUrl(url);
+    setLoading(false);
+  };
+
+  return (
+    <div style={{ textAlign: "center", padding: "20px" }}>
+      <h1>Random dog & cat image</h1>
+      <button onClick={() => handleFetch("dog")}>🐶 Dog</button>
+      <button onClick={() => handleFetch("cat")}>🐱 Cat</button>
+      {loading ? <p>Loading...</p> : imagUrl && <ImageCard url={imagUrl} />}
+    </div>
+  );
+};
 
 export default App;
